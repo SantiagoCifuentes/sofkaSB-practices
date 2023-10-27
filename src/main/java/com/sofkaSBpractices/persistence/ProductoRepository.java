@@ -5,6 +5,7 @@ import com.sofkaSBpractices.domain.repository.ProductRepository;
 import com.sofkaSBpractices.persistence.crud.ProductoCrudRepository;
 import com.sofkaSBpractices.persistence.entity.Producto;
 import com.sofkaSBpractices.persistence.mapper.ProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,8 +14,10 @@ import java.util.Optional;
 @Repository
 public class ProductoRepository implements ProductRepository {
 
+    @Autowired
     //aquí estarían todos los productos de la bd
     private ProductoCrudRepository productoCrudRepository;
+    @Autowired
     private ProductMapper mapper;
 
 //    public List<Producto> getAll(){
@@ -26,17 +29,17 @@ public class ProductoRepository implements ProductRepository {
 //    }
 
 
-    Optional<List<Producto>> getEscasos(int cantidad ){
-        return productoCrudRepository.findByCantidadStockLessThanAndEstado(cantidad, true);
-    }
+//    Optional<List<Producto>> getEscasos(int cantidad ){
+//        return productoCrudRepository.findByCantidadStockLessThanAndEstado(cantidad, true);
+//    }
 
-    public List<Producto>getPrecioVenta(double precioVenta){
-        return productoCrudRepository.findByPrecioVenta(precioVenta);
-    }
+//    public List<Producto>getPrecioVenta(double precioVenta){
+//        return productoCrudRepository.findByPrecioVenta(precioVenta);
+//    }
 
-    public Optional<Producto>getProducto(int idProducto){
-        return productoCrudRepository.findById(idProducto);
-    }
+//    public Optional<Producto>getProducto(int idProducto){
+//        return productoCrudRepository.findById(idProducto);
+//    }
 
     public  Producto save(Producto producto){
         return  productoCrudRepository.save(producto);
@@ -63,20 +66,27 @@ public class ProductoRepository implements ProductRepository {
 
     @Override
     public Optional<Product> getProduct(int productId) {
+
         return productoCrudRepository.findById(productId).map(producto -> mapper.toProduct(producto));
     }
 
     @Override
     public List<Product> getSellingPrice(double precioVenta) {
-        return null;
+        List<Producto> sellingPrice = productoCrudRepository.findByPrecioVenta(precioVenta);
+
+        return mapper.toProducts(sellingPrice);
     }
 
     @Override
     public Product save(Product product) {
-        return null;
+
+        Producto producto = mapper.toProducto(product);
+
+        return mapper.toProduct( productoCrudRepository.save(producto));
     }
 
-    public void delete(int idProducto){
-        productoCrudRepository.deleteById(idProducto);
+    @Override
+    public void delete(int productId){
+        productoCrudRepository.deleteById(productId);
     }
 }
