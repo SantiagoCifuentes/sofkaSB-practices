@@ -41,9 +41,9 @@ public class ProductoRepository implements ProductRepository {
 //        return productoCrudRepository.findById(idProducto);
 //    }
 
-    public  Producto save(Producto producto){
-        return  productoCrudRepository.save(producto);
-    }
+//    public  Producto save(Producto producto){
+//        return  productoCrudRepository.save(producto);
+//    }
 
     @Override
     public List<Product> getall() {
@@ -51,10 +51,20 @@ public class ProductoRepository implements ProductRepository {
         return mapper.toProducts(productos);
     }
 
+//    @Override
+//    public Optional<List<Product>> getByCategory(int categoryId) {
+//        List<Producto> productos = productoCrudRepository.findByIdCategoriaOrderByNombre(categoryId);
+//        return Optional.of(mapper.toProducts(productos));
+//    }
+
     @Override
     public Optional<List<Product>> getByCategory(int categoryId) {
         List<Producto> productos = productoCrudRepository.findByIdCategoriaOrderByNombre(categoryId);
-        return Optional.of(mapper.toProducts(productos));
+        if (productos.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(mapper.toProducts(productos));
+        }
     }
 
     @Override
@@ -89,4 +99,6 @@ public class ProductoRepository implements ProductRepository {
     public void delete(int productId){
         productoCrudRepository.deleteById(productId);
     }
+
+
 }

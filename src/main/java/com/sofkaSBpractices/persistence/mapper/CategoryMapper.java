@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring" , uses = {CategoryMapper.class}) //se usa uses ya uqe se está mapeando category y esta
+@Mapper(componentModel = "spring" , uses = {Category.class}) //se usa uses ya uqe se está mapeando category y esta
                                                                     // ya tiene su mapping propio
 public interface CategoryMapper {
 
@@ -15,7 +15,7 @@ public interface CategoryMapper {
             // se lee de la sgte manera : donde sea idCategoria lo lleve a categoryId
             @Mapping(source = "idCategoria", target = "categoryId") ,
             @Mapping(source = "descripcion", target = "category") ,
-            @Mapping(source = "estado", target = "active") ,
+            @Mapping(source = "estado", target = "active")
     })
     Category toCategory(Categoria categoria);
 
