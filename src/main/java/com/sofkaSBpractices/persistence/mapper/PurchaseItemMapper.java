@@ -11,7 +11,7 @@ import org.mapstruct.Mappings;
 public interface PurchaseItemMapper {
 
     @Mappings({
-            @Mapping(source = "id.idProducto", target="productoId"),
+            @Mapping(source = "id.idProducto", target="productId"),
             @Mapping(source = "cantidad", target="quantity"),
             //con total no se hace ya que se llama igual en la clase base y en la de dominio(maper)
             @Mapping(source = "estado", target="active"),
