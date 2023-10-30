@@ -1,4 +1,4 @@
-package com.sofkaSBpractices.controller;
+package com.sofkaSBpractices.web.controller;
 
 import com.sofkaSBpractices.domain.Purchase;
 import com.sofkaSBpractices.domain.service.PurchaseService;

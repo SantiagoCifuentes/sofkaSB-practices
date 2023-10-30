@@ -1,4 +1,4 @@
-package com.sofkaSBpractices.controller;
+package com.sofkaSBpractices.web.controller;
 
 
 import com.sofkaSBpractices.domain.Product;
